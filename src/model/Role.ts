@@ -1,0 +1,1 @@
+type EmployeeRole = 'Market' | 'Finance' | 'Development';
