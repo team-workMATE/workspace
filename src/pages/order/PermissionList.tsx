@@ -2,7 +2,7 @@ import { DataModelId, List, PageContainer } from "@toolpad/core";
 import React from "react";
 import { Order } from "../../model/Order";
 import { Permission } from "../../model/Permissions";
-import { permissionDataSourceList } from "../../data-source/Permissions";
+import { permissionDataSourceList } from "../../data-source/Permission";
 
 type Props = {
     order: Order;

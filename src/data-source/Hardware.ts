@@ -233,3 +233,26 @@ export const hardwareDataSourceList: DataSource<Hardware> &
     return hardwareToShow;
   },
 };
+
+export const hardwareDataSourceSingle: DataSource<Hardware> &
+  Required<Pick<DataSource<Hardware>, 'getOne'>> = {
+  fields: [
+    { field: 'id', headerName: 'ID' },
+    { field: 'name', headerName: 'Name', width: 140 },
+  ],
+  getOne: async (hardwareId) => {
+    // Simulate loading delay
+    await new Promise((resolve) => {
+      setTimeout(resolve, 750);
+    });
+
+    const hardwareStore = getHardwareStore();
+
+    const hardwareToShow = hardwareStore.find((hardware) => hardware.id === Number(hardwareId));
+
+    if (!hardwareToShow) {
+      throw new Error('Hardware not found');
+    }
+    return hardwareToShow;
+  },
+};

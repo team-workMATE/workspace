@@ -269,3 +269,41 @@ export const employeeDataSourceList: DataSource<Employee> &
     return employeeToShow;
   },
 };
+
+export const hardwareDataSourceSingle: DataSource<Employee> &
+  Required<Pick<DataSource<Employee>, 'getOne'>> = {
+  fields: [
+    { field: 'id', headerName: 'ID' },
+    { field: 'name', headerName: 'Name', width: 140 },
+    { field: 'age', headerName: 'Age', type: 'number' },
+    {
+      field: 'joinDate',
+      headerName: 'Join date',
+      type: 'date',
+      valueGetter: (value: string) => value && new Date(value),
+      width: 140,
+    },
+    {
+      field: 'role',
+      headerName: 'Department',
+      type: 'singleSelect',
+      valueOptions: ['Market', 'Finance', 'Development'],
+      width: 160,
+    },
+  ],
+  getOne: async (employeeId) => {
+    // Simulate loading delay
+    await new Promise((resolve) => {
+      setTimeout(resolve, 750);
+    });
+
+    const employeesStore = getEmployeesStore();
+
+    const employeeToShow = employeesStore.find((employee) => employee.id === Number(employeeId));
+
+    if (!employeeToShow) {
+      throw new Error('Employee not found');
+    }
+    return employeeToShow;
+  },
+};

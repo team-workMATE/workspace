@@ -9,34 +9,19 @@ import ConfirmOrder from "./order/ConfirmOrder";
 import { Box } from "@mui/material";
 import CustomizedSteppers from "./CustomizedSteppers";
 import CreateOrder from "./order/CreateOrder";
+import { getOrderStore, setOrderStore } from "../data-store/OrderStore";
 
 const OrderStepFlow: React.FC = () => {
     const [order, setOrder] = useState<Order>({ id: uuidv4() } as Order);
+    const orderStore = getOrderStore();
+    setOrderStore([...orderStore, order]);
     const [page, setPage] = useState(0);
-
-    useEffect(() => console.log(page))
 
     const updateOrder = (updatedOrder: Order, updatedStep: number) => {
         setPage(updatedStep);
         setOrder(updatedOrder);
+        setOrderStore([...orderStore, order]);
         console.log(order);
-    };
-
-    const OrderFlowPage = () => {
-        switch (page) {
-            case 1:
-                return <EmployeeList order={order} step={page} updateOrderFlow={updateOrder} />
-            case 2:
-                return <HardwareList order={order} step={page} updateOrderFlow={updateOrder} />
-            case 3:
-                return <SoftwareList order={order} step={page} updateOrderFlow={updateOrder} />
-            case 4:
-                return <PermissionList order={order} step={page} updateOrderFlow={updateOrder} />
-            case 5:
-                return <ConfirmOrder order={order} />
-            default:
-                return <Fragment />
-        }
     };
 
     return (

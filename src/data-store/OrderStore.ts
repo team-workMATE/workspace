@@ -1,4 +1,3 @@
-import { Employee } from '../model/Employee';
 import { Order } from '../model/Order';
 
 const ORDER_STORE: Order[] = [

@@ -233,3 +233,26 @@ export const permissionDataSourceList: DataSource<Permission> &
     return permissionToShow;
   },
 };
+
+export const permissionDataSourceSingle: DataSource<Permission> &
+  Required<Pick<DataSource<Permission>, 'getOne'>> = {
+  fields: [
+    { field: 'id', headerName: 'ID' },
+    { field: 'name', headerName: 'Name', width: 140 },
+  ],
+  getOne: async (permissionId) => {
+    // Simulate loading delay
+    await new Promise((resolve) => {
+      setTimeout(resolve, 750);
+    });
+
+    const permissionStore = getPermissionStore();
+
+    const permissionToShow = permissionStore.find((permission) => permission.id === Number(permissionId));
+
+    if (!permissionToShow) {
+      throw new Error('Permission not found');
+    }
+    return permissionToShow;
+  },
+};

@@ -1,8 +1,10 @@
 import { DataModelId, List, PageContainer } from "@toolpad/core";
-import React from "react";
+import React, { useState } from "react";
 import { Order } from "../../model/Order";
 import { Software } from "../../model/Software";
 import { softwareDataSourceList } from "../../data-source/software";
+import AlertSnackbar from "../../components/alert/AlertSnackBar";
+import { Box, Button } from "@mui/material";
 
 type Props = {
     order: Order;
@@ -10,17 +12,19 @@ type Props = {
     updateOrderFlow: (order: Order, step: number) => void;
 };
 
-const SoftwareList: React.FC<Props> = ({order, step, updateOrderFlow}) => {
+const SoftwareList: React.FC<Props> = ({ order, step, updateOrderFlow }) => {
     const handleRowClick = React.useCallback((id: DataModelId) => {
-        updateOrderFlow({...order, softwareId: id}, step + 1)
-    }, []);
+            updateOrderFlow({...order, permissionId: id}, step + 1)
+        }, []);
 
     return (
+        <Box>
             <List<Software>
                 dataSource={softwareDataSourceList}
                 initialPageSize={25}
                 onRowClick={handleRowClick}
             />
+        </Box>
     );
 };
 

@@ -1,8 +1,6 @@
-import { Hardware } from "../model/Hardware";
+import { Software } from "../model/Software";
 import { DataSource } from "@toolpad/core";
 import { z } from 'zod';
-import { getHardwareStore, setHardwareStore } from "../data-store/hardware";
-import { Software } from "../model/Software";
 import { getSoftwareStore, setSoftwareStore } from "../data-store/software";
 
 
@@ -102,9 +100,9 @@ export const softwareDataSource: DataSource<Software> = {
     const newEmployee = {
       id: employeesStore.reduce((max, employee) => Math.max(max, employee.id), 0) + 1,
       ...data,
-    } as Hardware;
+    } as Software;
 
-    setHardwareStore([...employeesStore, newEmployee]);
+    setSoftwareStore([...employeesStore, newEmployee]);
 
     return newEmployee;
   },
@@ -114,11 +112,11 @@ export const softwareDataSource: DataSource<Software> = {
       setTimeout(resolve, 750);
     });
 
-    const employeesStore = getHardwareStore();
+    const employeesStore = getSoftwareStore();
 
     let updatedEmployee: Software | null = null;
 
-    setHardwareStore(
+    setSoftwareStore(
       employeesStore.map((employee) => {
         if (employee.id === Number(employeeId)) {
           updatedEmployee = { ...employee, ...data };
@@ -228,6 +226,29 @@ export const softwareDataSourceList: DataSource<Software> &
     const softwaresStore = getSoftwareStore();
 
     const softwareToShow = softwaresStore.find((software) => software.id === Number(softwareId));
+
+    if (!softwareToShow) {
+      throw new Error('Software not found');
+    }
+    return softwareToShow;
+  },
+};
+
+export const softwareDataSourceSingle: DataSource<Software> &
+  Required<Pick<DataSource<Software>, 'getOne'>> = {
+  fields: [
+    { field: 'id', headerName: 'ID' },
+    { field: 'name', headerName: 'Name', width: 140 },
+  ],
+  getOne: async (softwareId) => {
+    // Simulate loading delay
+    await new Promise((resolve) => {
+      setTimeout(resolve, 750);
+    });
+
+    const softwareStore = getSoftwareStore();
+
+    const softwareToShow = softwareStore.find((software) => software.id === Number(softwareId));
 
     if (!softwareToShow) {
       throw new Error('Software not found');

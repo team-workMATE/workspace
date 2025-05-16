@@ -1,7 +1,7 @@
 import { Crud } from "@toolpad/core";
 import { Hardware } from "../model/Hardware";
 import { Permission } from "../model/Permissions";
-import { permissionDataSource } from "../data-source/Permissions";
+import { permissionDataSource } from "../data-source/Permission";
 
 export default function PermissionPage() {
   return (
