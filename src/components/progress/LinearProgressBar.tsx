@@ -29,8 +29,14 @@ const LinearProgressBar: React.FC<Props> = ({ start, onComplete }) => {
 
     React.useEffect(() => {
         if (start) {
-            setInterval(() => {
-                setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
+            const timer = setInterval(() => {
+                setProgress((prevProgress) => {
+                    if (prevProgress >= 100) {
+                        clearInterval(timer);
+                        return 100;
+                    }
+                    return prevProgress + 10;
+                })
             }, 800);
             return () => {
                 onComplete();
