@@ -3,7 +3,7 @@ import { Tab } from "@mui/material";
 import { Show } from "@toolpad/core";
 import { useState } from "react";
 import GridContainer from "../../components/grid/GridContainer";
-import { hardwareDataSourceSingle } from "../../data-source/employees";
+import { employeeDataSourceSingle } from "../../data-source/employees";
 import { softwareDataSourceSingle } from "../../data-source/software";
 import { Employee } from "../../model/Employee";
 import { Hardware } from "../../model/Hardware";
@@ -11,6 +11,7 @@ import { Order } from "../../model/Order";
 import { Permission } from "../../model/Permissions";
 import { Software } from "../../model/Software";
 import { permissionDataSourceSingle } from "../../data-source/Permission";
+import { hardwareDataSourceSingle } from "../../data-source/Hardware";
 
 type Props = {
     order: Order;
@@ -35,7 +36,7 @@ const OrderDetails: React.FC<Props> = ({ order }) => {
             </GridContainer>
             <TabPanel value="1">
                 <Show<Employee> id={order.employeeId}
-                    dataSource={hardwareDataSourceSingle} />
+                    dataSource={employeeDataSourceSingle} />
             </TabPanel>
             <TabPanel value="2">
                 <Show<Hardware> id={order.hardwareId}

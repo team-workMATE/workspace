@@ -1,10 +1,9 @@
-import { DataModelId, List, PageContainer } from "@toolpad/core";
-import React, { useState } from "react";
+import { DataModelId, List } from "@toolpad/core";
+import React from "react";
 import { Order } from "../../model/Order";
 import { Software } from "../../model/Software";
 import { softwareDataSourceList } from "../../data-source/software";
-import AlertSnackbar from "../../components/alert/AlertSnackBar";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 
 type Props = {
     order: Order;
@@ -14,8 +13,8 @@ type Props = {
 
 const SoftwareList: React.FC<Props> = ({ order, step, updateOrderFlow }) => {
     const handleRowClick = React.useCallback((id: DataModelId) => {
-            updateOrderFlow({...order, permissionId: id}, step + 1)
-        }, []);
+        updateOrderFlow({ ...order, softwareId: id }, step + 1)
+    }, []);
 
     return (
         <Box>

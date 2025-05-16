@@ -1,7 +1,7 @@
 import { Software } from "../model/Software";
 import { DataSource } from "@toolpad/core";
 import { z } from 'zod';
-import { getSoftwareStore, setSoftwareStore } from "../data-store/software";
+import { getSoftwareStore, setSoftwareStore } from "../data-store/SoftwareStore";
 
 
 export const softwareDataSource: DataSource<Software> = {

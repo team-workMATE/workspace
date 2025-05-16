@@ -1,7 +1,7 @@
 import { Permission } from "../model/Permissions";
 import { DataSource } from "@toolpad/core";
 import { z } from 'zod';
-import { getPermissionStore, setPermissionStore } from "../data-store/Permissions";
+import { getPermissionStore, setPermissionStore } from "../data-store/PermissionStore";
 
 
 export const permissionDataSource: DataSource<Permission> = {

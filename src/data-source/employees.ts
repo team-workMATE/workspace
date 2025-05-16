@@ -1,5 +1,5 @@
 import { DataSource } from "@toolpad/core";
-import { getEmployeesStore, setEmployeesStore } from "../data-store/employees";
+import { getEmployeesStore, setEmployeesStore } from "../data-store/EmployeeStore";
 import { Employee } from "../model/Employee";
 import { z } from 'zod';
 
@@ -270,7 +270,7 @@ export const employeeDataSourceList: DataSource<Employee> &
   },
 };
 
-export const hardwareDataSourceSingle: DataSource<Employee> &
+export const employeeDataSourceSingle: DataSource<Employee> &
   Required<Pick<DataSource<Employee>, 'getOne'>> = {
   fields: [
     { field: 'id', headerName: 'ID' },

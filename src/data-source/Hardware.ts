@@ -1,7 +1,7 @@
 import { Hardware } from "../model/Hardware";
 import { DataSource } from "@toolpad/core";
 import { z } from 'zod';
-import { getHardwareStore, setHardwareStore } from "../data-store/hardware";
+import { getHardwareStore, setHardwareStore } from "../data-store/HardwareStore";
 
 
 export const hardwareDataSource: DataSource<Hardware> = {

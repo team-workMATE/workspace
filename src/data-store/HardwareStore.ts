@@ -3,11 +3,19 @@ import { Hardware } from "../model/Hardware";
 const INITIAL_HARDWARE_STORE: Hardware[] = [
   {
     id: 1,
-    name: 'Windows',
+    name: 'Dell',
   },
   {
     id: 2,
     name: 'Mac',
+  },
+  {
+    id: 3,
+    name: 'Pager',
+  },
+  {
+    id: 3,
+    name: 'Tablet',
   },
 ];
 
