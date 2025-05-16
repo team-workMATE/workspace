@@ -2,18 +2,20 @@ import * as React from 'react';
 import { Outlet, useLocation, useParams, matchPath } from 'react-router';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
-import { RootPath } from '../RootPath';
+import { getRootPath, RootPath } from '../RootPath';
 
 export default function Layout() {
   const location = useLocation();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+
+  console.log(id)
 
   const title = React.useMemo(() => {
-    if (location.pathname.startsWith(RootPath.Employee)) {
+    if (location.pathname.startsWith(getRootPath(RootPath.Employee))) {
       if (location.pathname === RootPath.Employee + '/new') {
         return 'New Employee';
       }
-      if (matchPath(RootPath.Employee + '/:id/edit', location.pathname)) {
+      if (matchPath(getRootPath(RootPath.Employee) + '/:id/edit', location.pathname)) {
         return `Employee ${id} - Edit`;
       }
       if (id) {

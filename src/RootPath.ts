@@ -1,9 +1,9 @@
 export enum RootPath {
-    Employee = '/employees',
-    Hardware = '/hardware',
-    Software = '/software',
-    Permission = '/permissions',
-    Order = '/order'
+    Employee = '/workspace/employees',
+    Hardware = '/workspace/hardware',
+    Software = '/workspace/software',
+    Permission = '/workspace/permissions',
+    Order = '/workspace/order'
 };
 
 export const getRootPath = (path: RootPath) => {

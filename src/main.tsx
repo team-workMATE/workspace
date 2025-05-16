@@ -23,23 +23,23 @@ const router = createBrowserRouter([
             Component: DashboardPage,
           },
           {
-            path: 'employees/:employeeId?/*',
+            path: '/workspace/employees/:id?/*',
             Component: EmployeesPage,
           },
           {
-            path: 'hardware/:hardwareId?/*',
+            path: '/workspace/hardware/:id?/*',
             Component: HardwarePage,
           },
           {
-            path: 'software/:softwareId?/*',
+            path: '/workspace/software/:id?/*',
             Component: SoftwarePage,
           },
           {
-            path: 'permissions/:permissionId?/*',
+            path: '/workspace/permissions/:id?/*',
             Component: PermissionPage,
           },
           {
-            path: 'order/:orderId?/*',
+            path: '/workspace/order/:id?/*',
             Component: OrderStepFlow,
           },
         ],
