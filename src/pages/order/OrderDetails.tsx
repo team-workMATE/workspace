@@ -51,7 +51,6 @@ const OrderDetails: React.FC<Props> = ({ order }) => {
                     dataSource={permissionDataSourceSingle} />
             </TabPanel>
         </TabContext>
-
     );
 };
 

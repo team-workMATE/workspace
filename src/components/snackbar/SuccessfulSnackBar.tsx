@@ -10,7 +10,7 @@ type Props = {
   onClose: () => void;
 };
 
-const AlertSnackbar: React.FC<Props> = ({open, onClose}) => {
+const SuccessfulSnackBar: React.FC<Props> = ({ open, onClose }) => {
   const [state, setState] = React.useState<State>({
     open: open,
     vertical: 'top',
@@ -18,13 +18,13 @@ const AlertSnackbar: React.FC<Props> = ({open, onClose}) => {
   });
 
   return (
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        open={open}
-        onClose={onClose}
-        message="I love snacks"
-      />
+    <Snackbar
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      open={open}
+      onClose={onClose}
+      message="Order has been submitted successfully."
+    />
   );
 };
 
-export default AlertSnackbar;
+export default Snackbar;
