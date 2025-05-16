@@ -1,17 +1,16 @@
+import { Card, CardContent } from "@mui/material";
 import { useState } from "react";
-import EmployeeList from "./order/EmployeeList";
-import { Order } from "../model/Order";
 import { v4 as uuidv4 } from 'uuid';
-import SoftwareList from "./order/SoftwareList";
-import PermissionList from "./order/PermissionList";
-import ConfirmOrder from "./order/ConfirmOrder";
-import { Button, Card, CardActions, CardContent } from "@mui/material";
-import CustomizedSteppers from "./CustomizedSteppers";
-import CreateOrder from "./order/CreateOrder";
-import { getOrderStore, setOrderStore } from "../data-store/OrderStore";
-import HardwareList from "./order/HardwareList";
 import CenteredCardHeader from "../components/card/CenteredCardHeader";
-import GridContainer from "../components/grid/GridContainer";
+import { getOrderStore, setOrderStore } from "../data-store/OrderStore";
+import { Order } from "../model/Order";
+import CustomizedSteppers from "./CustomizedSteppers";
+import ConfirmOrder from "./order/ConfirmOrder";
+import CreateOrder from "./order/CreateOrder";
+import EmployeeList from "./order/EmployeeList";
+import HardwareList from "./order/HardwareList";
+import PermissionList from "./order/PermissionList";
+import SoftwareList from "./order/SoftwareList";
 
 const OrderStepFlow: React.FC = () => {
     const [order, setOrder] = useState<Order>({ id: uuidv4() } as Order);
@@ -37,11 +36,6 @@ const OrderStepFlow: React.FC = () => {
                 {page === 4 && <PermissionList order={order} step={page} updateOrderFlow={updateOrder} />}
                 {page === 5 && <ConfirmOrder order={order} />}
             </CardContent>
-            <CardActions>
-                <GridContainer centered>
-                    <Button color="primary">Confirm Order</Button>
-                </GridContainer>
-            </CardActions>
         </Card>
     )
 };
