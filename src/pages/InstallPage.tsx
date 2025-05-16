@@ -24,7 +24,7 @@ function Row(props: Props) {
                     <Typography>{name}</Typography>
                 </TableCell>
                 <TableCell>
-                    <Button onClick={() => setOpen(!open)}>Start Install</Button>
+                    <Button onClick={() => setOpen(!open)} disabled={open}>Start Install</Button>
                 </TableCell>
             </TableRow>
             <TableRow>
@@ -77,15 +77,12 @@ export default function InstallPage() {
                     <Table>
                         <TableBody>
                             <Row name={'Intellij Community Edition'}/>
+                            <Row name={'Java Developer Kit'}/>
+                            <Row name={'Maven'}/>
+                            <Row name={'Git'}/>
                         </TableBody>
                     </Table>
                 </TableContainer>
-
-
-                {query === 'idle' || query === 'progress' && <Button onClick={handleClickQuery} sx={{ m: 2 }}>
-                    {query === 'progress' ? 'Install' : 'Cancel'}
-                </Button>}
-                {query === 'success' && <Typography>Install was Successful!</Typography>}
             </CardContent>
         </Card>
 
