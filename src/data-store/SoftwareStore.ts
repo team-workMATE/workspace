@@ -9,6 +9,14 @@ const INITIAL_SOFTWARE_STORE: Software[] = [
     id: 2,
     name: 'Maven',
   },
+  {
+    id: 3,
+    name: 'QuickBooks',
+  },
+  {
+    id: 4,
+    name: 'Microsoft Office 365',
+  },
 ];
 
 export const getSoftwareStore = (): Software[] => {

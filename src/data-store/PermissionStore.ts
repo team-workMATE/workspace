@@ -3,11 +3,23 @@ import { Permission } from "../model/Permissions";
 const INITIAL_SOFTWARE_STORE: Permission[] = [
   {
     id: 1,
-    name: 'Git',
+    name: 'Github',
   },
   {
     id: 2,
-    name: 'Maven',
+    name: 'JIRA',
+  },
+  {
+    id: 3,
+    name: 'Payroll',
+  },
+  {
+    id: 4,
+    name: 'Master Key',
+  },
+  {
+    id: 5,
+    name: 'Employee Scheduling',
   },
 ];
 

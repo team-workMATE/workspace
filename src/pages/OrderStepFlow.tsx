@@ -23,7 +23,6 @@ const OrderStepFlow: React.FC = () => {
         setPage(updatedStep);
         setOrder(updatedOrder);
         setOrderStore([...orderStore, order]);
-        console.log(order);
     };
 
     return (
