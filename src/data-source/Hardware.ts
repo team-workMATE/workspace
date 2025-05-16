@@ -15,9 +15,9 @@ export const hardwareDataSource: DataSource<Hardware> = {
       setTimeout(resolve, 750);
     });
 
-    const employeesStore = getHardwareStore();
+    const hardwaresStore = getHardwareStore();
 
-    let filteredEmployees = [...employeesStore];
+    let filteredHardwares = [...hardwaresStore];
 
     // Apply filters (example only)
     if (filterModel?.items?.length) {
@@ -26,22 +26,22 @@ export const hardwareDataSource: DataSource<Hardware> = {
           return;
         }
 
-        filteredEmployees = filteredEmployees.filter((employee) => {
-          const employeeValue = employee[field];
+        filteredHardwares = filteredHardwares.filter((hardware) => {
+          const hardwareValue = hardware[field];
 
           switch (operator) {
             case 'contains':
-              return String(employeeValue).toLowerCase().includes(String(value).toLowerCase());
+              return String(hardwareValue).toLowerCase().includes(String(value).toLowerCase());
             case 'equals':
-              return employeeValue === value;
+              return hardwareValue === value;
             case 'startsWith':
-              return String(employeeValue).toLowerCase().startsWith(String(value).toLowerCase());
+              return String(hardwareValue).toLowerCase().startsWith(String(value).toLowerCase());
             case 'endsWith':
-              return String(employeeValue).toLowerCase().endsWith(String(value).toLowerCase());
+              return String(hardwareValue).toLowerCase().endsWith(String(value).toLowerCase());
             case '>':
-              return (employeeValue as number) > value;
+              return (hardwareValue as number) > value;
             case '<':
-              return (employeeValue as number) < value;
+              return (hardwareValue as number) < value;
             default:
               return true;
           }
@@ -51,7 +51,7 @@ export const hardwareDataSource: DataSource<Hardware> = {
 
     // Apply sorting
     if (sortModel?.length) {
-      filteredEmployees.sort((a, b) => {
+      filteredHardwares.sort((a, b) => {
         for (const { field, sort } of sortModel) {
           if ((a[field] as number) < (b[field] as number)) {
             return sort === 'asc' ? -1 : 1;
@@ -67,27 +67,27 @@ export const hardwareDataSource: DataSource<Hardware> = {
     // Apply pagination
     const start = paginationModel.page * paginationModel.pageSize;
     const end = start + paginationModel.pageSize;
-    const paginatedEmployees = filteredEmployees.slice(start, end);
+    const paginatedHardwares = filteredHardwares.slice(start, end);
 
     return {
-      items: paginatedEmployees,
-      itemCount: filteredEmployees.length,
+      items: paginatedHardwares,
+      itemCount: filteredHardwares.length,
     };
   },
-  getOne: async (employeeId) => {
+  getOne: async (hardwareId) => {
     // Simulate loading delay
     await new Promise((resolve) => {
       setTimeout(resolve, 750);
     });
 
-    const employeesStore = getHardwareStore();
+    const hardwaresStore = getHardwareStore();
 
-    const employeeToShow = employeesStore.find((employee) => employee.id === Number(employeeId));
+    const hardwareToShow = hardwaresStore.find((hardware) => hardware.id === Number(hardwareId));
 
-    if (!employeeToShow) {
-      throw new Error('Employee not found');
+    if (!hardwareToShow) {
+      throw new Error('Hardware not found');
     }
-    return employeeToShow;
+    return hardwareToShow;
   },
   createOne: async (data) => {
     // Simulate loading delay
@@ -95,53 +95,141 @@ export const hardwareDataSource: DataSource<Hardware> = {
       setTimeout(resolve, 750);
     });
 
-    const employeesStore = getHardwareStore();
+    const hardwaresStore = getHardwareStore();
 
-    const newEmployee = {
-      id: employeesStore.reduce((max, employee) => Math.max(max, employee.id), 0) + 1,
+    const newHardware = {
+      id: hardwaresStore.reduce((max, hardware) => Math.max(max, hardware.id), 0) + 1,
       ...data,
     } as Hardware;
 
-    setHardwareStore([...employeesStore, newEmployee]);
+    setHardwareStore([...hardwaresStore, newHardware]);
 
-    return newEmployee;
+    return newHardware;
   },
-  updateOne: async (employeeId, data) => {
+  updateOne: async (hardwareId, data) => {
     // Simulate loading delay
     await new Promise((resolve) => {
       setTimeout(resolve, 750);
     });
 
-    const employeesStore = getHardwareStore();
+    const hardwaresStore = getHardwareStore();
 
-    let updatedEmployee: Hardware | null = null;
+    let updatedHardware: Hardware | null = null;
 
     setHardwareStore(
-      employeesStore.map((employee) => {
-        if (employee.id === Number(employeeId)) {
-          updatedEmployee = { ...employee, ...data };
-          return updatedEmployee;
+      hardwaresStore.map((hardware) => {
+        if (hardware.id === Number(hardwareId)) {
+          updatedHardware = { ...hardware, ...data };
+          return updatedHardware;
         }
-        return employee;
+        return hardware;
       }),
     );
 
-    if (!updatedEmployee) {
-      throw new Error('Employee not found');
+    if (!updatedHardware) {
+      throw new Error('Hardware not found');
     }
-    return updatedEmployee;
+    return updatedHardware;
   },
-  deleteOne: async (employeeId) => {
+  deleteOne: async (hardwareId) => {
     // Simulate loading delay
     await new Promise((resolve) => {
       setTimeout(resolve, 750);
     });
 
-    const employeesStore = getHardwareStore();
+    const hardwaresStore = getHardwareStore();
 
-    setHardwareStore(employeesStore.filter((employee) => employee.id !== Number(employeeId)));
+    setHardwareStore(hardwaresStore.filter((hardware) => hardware.id !== Number(hardwareId)));
   },
   validate: z.object({
     name: z.string({ required_error: 'Name is required' }).nonempty('Name is required'),
   })['~standard'].validate,
+};
+
+export const hardwareDataSourceList: DataSource<Hardware> &
+  Required<Pick<DataSource<Hardware>, 'getMany'>> = {
+  fields: [
+    { field: 'id', headerName: 'ID' },
+    { field: 'name', headerName: 'Name', width: 140 },
+  ],
+  getMany: async ({ paginationModel, filterModel, sortModel }) => {
+    // Simulate loading delay
+    await new Promise((resolve) => {
+      setTimeout(resolve, 750);
+    });
+
+    const hardwaresStore = getHardwareStore();
+
+    let filteredHardwares = [...hardwaresStore];
+
+    // Apply filters (example only)
+    if (filterModel?.items?.length) {
+      filterModel.items.forEach(({ field, value, operator }) => {
+        if (!field || value == null) {
+          return;
+        }
+
+        filteredHardwares = filteredHardwares.filter((hardware) => {
+          const hardwareValue = hardware[field];
+
+          switch (operator) {
+            case 'contains':
+              return String(hardwareValue).toLowerCase().includes(String(value).toLowerCase());
+            case 'equals':
+              return hardwareValue === value;
+            case 'startsWith':
+              return String(hardwareValue).toLowerCase().startsWith(String(value).toLowerCase());
+            case 'endsWith':
+              return String(hardwareValue).toLowerCase().endsWith(String(value).toLowerCase());
+            case '>':
+              return (hardwareValue as number) > value;
+            case '<':
+              return (hardwareValue as number) < value;
+            default:
+              return true;
+          }
+        });
+      });
+    }
+
+    // Apply sorting
+    if (sortModel?.length) {
+      filteredHardwares.sort((a, b) => {
+        for (const { field, sort } of sortModel) {
+          if ((a[field] as number) < (b[field] as number)) {
+            return sort === 'asc' ? -1 : 1;
+          }
+          if ((a[field] as number) > (b[field] as number)) {
+            return sort === 'asc' ? 1 : -1;
+          }
+        }
+        return 0;
+      });
+    }
+
+    // Apply pagination
+    const start = paginationModel.page * paginationModel.pageSize;
+    const end = start + paginationModel.pageSize;
+    const paginatedHardwares = filteredHardwares.slice(start, end);
+
+    return {
+      items: paginatedHardwares,
+      itemCount: filteredHardwares.length,
+    };
+  },
+  getOne: async (hardwareId) => {
+    // Simulate loading delay
+    await new Promise((resolve) => {
+      setTimeout(resolve, 750);
+    });
+
+    const hardwaresStore = getHardwareStore();
+
+    const hardwareToShow = hardwaresStore.find((hardware) => hardware.id === Number(hardwareId));
+
+    if (!hardwareToShow) {
+      throw new Error('Hardware not found');
+    }
+    return hardwareToShow;
+  },
 };

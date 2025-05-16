@@ -147,3 +147,91 @@ export const softwareDataSource: DataSource<Software> = {
     name: z.string({ required_error: 'Name is required' }).nonempty('Name is required'),
   })['~standard'].validate,
 };
+
+export const softwareDataSourceList: DataSource<Software> &
+  Required<Pick<DataSource<Software>, 'getMany'>> = {
+  fields: [
+    { field: 'id', headerName: 'ID' },
+    { field: 'name', headerName: 'Name', width: 140 },
+  ],
+  getMany: async ({ paginationModel, filterModel, sortModel }) => {
+    // Simulate loading delay
+    await new Promise((resolve) => {
+      setTimeout(resolve, 750);
+    });
+
+    const softwaresStore = getSoftwareStore();
+
+    let filteredSoftwares = [...softwaresStore];
+
+    // Apply filters (example only)
+    if (filterModel?.items?.length) {
+      filterModel.items.forEach(({ field, value, operator }) => {
+        if (!field || value == null) {
+          return;
+        }
+
+        filteredSoftwares = filteredSoftwares.filter((software) => {
+          const softwareValue = software[field];
+
+          switch (operator) {
+            case 'contains':
+              return String(softwareValue).toLowerCase().includes(String(value).toLowerCase());
+            case 'equals':
+              return softwareValue === value;
+            case 'startsWith':
+              return String(softwareValue).toLowerCase().startsWith(String(value).toLowerCase());
+            case 'endsWith':
+              return String(softwareValue).toLowerCase().endsWith(String(value).toLowerCase());
+            case '>':
+              return (softwareValue as number) > value;
+            case '<':
+              return (softwareValue as number) < value;
+            default:
+              return true;
+          }
+        });
+      });
+    }
+
+    // Apply sorting
+    if (sortModel?.length) {
+      filteredSoftwares.sort((a, b) => {
+        for (const { field, sort } of sortModel) {
+          if ((a[field] as number) < (b[field] as number)) {
+            return sort === 'asc' ? -1 : 1;
+          }
+          if ((a[field] as number) > (b[field] as number)) {
+            return sort === 'asc' ? 1 : -1;
+          }
+        }
+        return 0;
+      });
+    }
+
+    // Apply pagination
+    const start = paginationModel.page * paginationModel.pageSize;
+    const end = start + paginationModel.pageSize;
+    const paginatedSoftwares = filteredSoftwares.slice(start, end);
+
+    return {
+      items: paginatedSoftwares,
+      itemCount: filteredSoftwares.length,
+    };
+  },
+  getOne: async (softwareId) => {
+    // Simulate loading delay
+    await new Promise((resolve) => {
+      setTimeout(resolve, 750);
+    });
+
+    const softwaresStore = getSoftwareStore();
+
+    const softwareToShow = softwaresStore.find((software) => software.id === Number(softwareId));
+
+    if (!softwareToShow) {
+      throw new Error('Software not found');
+    }
+    return softwareToShow;
+  },
+};

@@ -4,6 +4,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import ComputerIcon from '@mui/icons-material/Computer';
 import ApiIcon from '@mui/icons-material/Api';
 import KeyIcon from '@mui/icons-material/Key';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import { Outlet } from 'react-router';
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
 import type { Navigation } from '@toolpad/core/AppProvider';
@@ -14,7 +15,7 @@ const NAVIGATION: Navigation = [
     title: 'Main items',
   },
   {
-    title: 'Laptop Setup Shopping Cart',
+    title: 'Dashboard',
     icon: <DashboardIcon />,
   },
   {
@@ -40,6 +41,12 @@ const NAVIGATION: Navigation = [
     title: 'Permissions',
     icon: <KeyIcon />,
     pattern: 'permissions{/:permissionId}*',
+  },
+  {
+    segment: 'order',
+    title: 'Create Order',
+    icon: <AddBoxIcon />,
+    pattern: 'order{/:orderId}*',
   },
 ];
 

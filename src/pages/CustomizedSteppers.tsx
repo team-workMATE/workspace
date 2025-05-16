@@ -4,11 +4,13 @@ import Stack from '@mui/material/Stack';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import SettingsIcon from '@mui/icons-material/Settings';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import VideoLabelIcon from '@mui/icons-material/VideoLabel';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import type { StepIconProps } from '@mui/material/StepIcon';
+import { CheckCircle } from '@mui/icons-material';
+import PersonIcon from '@mui/icons-material/Person';
+import ComputerIcon from '@mui/icons-material/Computer';
+import ApiIcon from '@mui/icons-material/Api';
+import KeyIcon from '@mui/icons-material/Key';
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -75,9 +77,11 @@ function ColorlibStepIcon(props: StepIconProps) {
     const { active, completed, className } = props;
 
     const icons: { [index: string]: React.ReactElement<unknown> } = {
-        1: <SettingsIcon />,
-        2: <GroupAddIcon />,
-        3: <VideoLabelIcon />,
+        1: <PersonIcon />,
+        2: <ComputerIcon />,
+        3: <ApiIcon />,
+        4: <KeyIcon />,
+        5: <CheckCircle />,
     };
 
     return (
@@ -87,12 +91,16 @@ function ColorlibStepIcon(props: StepIconProps) {
     );
 }
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+const steps = ['Select Employee', 'Select Hardware', 'Select Software', 'Select Permissions', 'Confirm Selections'];
 
-export default function CustomizedSteppers() {
+type Props = {
+    activeStep: number
+}
+
+const CustomizedSteppers: React.FC<Props> = ({activeStep}) => {
     return (
         <Stack sx={{ width: '100%' }} spacing={4}>
-            <Stepper alternativeLabel activeStep={1} connector={<ColorlibConnector />}>
+            <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
                 {steps.map((label) => (
                     <Step key={label}>
                         <StepLabel slots={{stepIcon: ColorlibStepIcon}}>{label}</StepLabel>
@@ -102,3 +110,5 @@ export default function CustomizedSteppers() {
         </Stack>
     );
 }
+
+export default CustomizedSteppers;

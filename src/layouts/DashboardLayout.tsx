@@ -10,10 +10,10 @@ export default function Layout() {
 
   const title = React.useMemo(() => {
     if (location.pathname.startsWith(RootPath.Employee)) {
-      if (location.pathname === '/employees/new') {
+      if (location.pathname === RootPath.Employee + '/new') {
         return 'New Employee';
       }
-      if (matchPath('/employees/:id/edit', location.pathname)) {
+      if (matchPath(RootPath.Employee + '/:id/edit', location.pathname)) {
         return `Employee ${id} - Edit`;
       }
       if (id) {
@@ -21,14 +21,41 @@ export default function Layout() {
       }
     }
     if (location.pathname.startsWith(RootPath.Hardware)) {
-      if (location.pathname === '/hardware/new') {
+      if (location.pathname === RootPath.Hardware + '/new') {
         return 'New Hardware';
       }
-      if (matchPath('/hardware/:id/edit', location.pathname)) {
+      if (matchPath(RootPath.Hardware + '/:id/edit', location.pathname)) {
         return `Hardware ${id} - Edit`;
       }
       if (id) {
         return `Hardware ${id}`;
+      }
+    }
+    if (location.pathname.startsWith(RootPath.Software)) {
+      if (location.pathname === RootPath.Software + '/new') {
+        return 'New Software';
+      }
+      if (matchPath(RootPath.Software + '/:id/edit', location.pathname)) {
+        return `Software ${id} - Edit`;
+      }
+      if (id) {
+        return `Software ${id}`;
+      }
+    }
+    if (location.pathname.startsWith(RootPath.Permission)) {
+      if (location.pathname === RootPath.Permission + '/new') {
+        return 'New Permission';
+      }
+      if (matchPath(RootPath.Permission + '/:id/edit', location.pathname)) {
+        return `Permission ${id} - Edit`;
+      }
+      if (id) {
+        return `Permission ${id}`;
+      }
+    }
+    if (location.pathname.startsWith(RootPath.Order)) {
+      if (location.pathname === RootPath.Order + '/new') {
+        return 'Create Order';
       }
     }
 

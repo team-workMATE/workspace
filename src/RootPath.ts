@@ -3,6 +3,7 @@ export enum RootPath {
     Hardware = '/hardware',
     Software = '/software',
     Permission = '/permissions',
+    Order = '/order'
 };
 
 export const getRootPath = (path: RootPath) => {

@@ -3,10 +3,12 @@ import * as ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import App from './App';
 import Layout from './layouts/DashboardLayout';
-import DashboardPage from './pages';
+import DashboardPage from './pages/DashboardPage';
 import EmployeesPage from './pages/EmployeesPage';
 import HardwarePage from './pages/HardwarePage';
 import SoftwarePage from './pages/SoftwarePage';
+import PermissionPage from './pages/PermissionsPage';
+import OrderStepFlow from './pages/OrderStepFlow';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +36,11 @@ const router = createBrowserRouter([
           },
           {
             path: 'permissions/:permissionId?/*',
-            Component: EmployeesPage,
+            Component: PermissionPage,
+          },
+          {
+            path: 'order/:orderId?/*',
+            Component: OrderStepFlow,
           },
         ],
       },
