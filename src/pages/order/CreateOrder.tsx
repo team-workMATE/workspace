@@ -1,6 +1,5 @@
 import CenteredCardHeader from "../../components/card/CenteredCardHeader";
 import GridContainer from "../../components/grid/GridContainer";
-import { Order } from "../../model/Order";
 import { Button, Card, CardContent } from "@mui/material";
 
 type Props = {

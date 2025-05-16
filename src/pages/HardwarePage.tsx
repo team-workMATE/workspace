@@ -1,7 +1,7 @@
 import { Crud } from "@toolpad/core";
 import { Hardware } from "../model/Hardware";
 import { getRootPath, RootPath } from "../RootPath";
-import { hardwareDataSource } from "../data-source/hardware";
+import { hardwareDataSource } from "../data-source/Hardware";
 
 export default function HardwarePage() {
   return (

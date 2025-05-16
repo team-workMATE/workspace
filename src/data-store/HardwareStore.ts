@@ -14,7 +14,7 @@ const INITIAL_HARDWARE_STORE: Hardware[] = [
     name: 'Pager',
   },
   {
-    id: 3,
+    id: 4,
     name: 'Tablet',
   },
 ];

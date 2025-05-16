@@ -13,6 +13,10 @@ type Props = {
 const ConfirmOrder: React.FC<Props> = ({ order }) => {
     const [openSnackBar, setOpenSnackBar] = useState(false);
 
+    const placeOrder = () => {
+        localStorage.setItem('order-placed', 'true');
+    }
+
     return (
         <Card>
             <CenteredCardHeader title={"Order #" + order.id} />
