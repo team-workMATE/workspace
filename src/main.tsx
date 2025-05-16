@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     Component: App,
     children: [
       {
-        path: '/',
+        path: '/workspace/',
         Component: Layout,
         children: [
           {

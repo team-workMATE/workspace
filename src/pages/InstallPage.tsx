@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import LinearProgressBar from '../components/progress/LinearProgressBar';
 import CenteredCardHeader from '../components/card/CenteredCardHeader';
-import { Card, CardContent, Collapse, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { Card, CardContent, Collapse, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableRow } from '@mui/material';
 import { Fragment, useState } from 'react';
 
 interface Props {
@@ -43,31 +43,10 @@ function Row(props: Props) {
 }
 
 export default function InstallPage() {
-    const [query, setQuery] = React.useState('idle');
-    const timerRef = React.useRef<ReturnType<typeof setTimeout>>(undefined);
 
-    React.useEffect(
-        () => () => {
-            clearTimeout(timerRef.current);
-        },
-        [],
-    );
-
-    const handleClickQuery = () => {
-        if (timerRef.current) {
-            clearTimeout(timerRef.current);
-        }
-
-        if (query !== 'idle') {
-            setQuery('idle');
-            return;
-        }
-
-        setQuery('progress');
-        timerRef.current = setTimeout(() => {
-            setQuery('success');
-        }, 2000);
-    };
+    const clear = () => {
+        localStorage.setItem('order-placed', 'false');
+    }
 
     return (
         <Card>
@@ -76,15 +55,19 @@ export default function InstallPage() {
                 <TableContainer component={Paper}>
                     <Table>
                         <TableBody>
-                            <Row name={'Intellij Community Edition'}/>
-                            <Row name={'Java Developer Kit'}/>
-                            <Row name={'Maven'}/>
-                            <Row name={'Git'}/>
+                            <Row name={'Intellij Community Edition'} />
+                            <Row name={'Java Developer Kit'} />
+                            <Row name={'Maven'} />
+                            <Row name={'Git'} />
                         </TableBody>
+                        <TableFooter>
+                            <TableRow>
+                                <Button variant='contained' color='primary' onClick={clear}>Clear Installation</Button>
+                            </TableRow>
+                        </TableFooter>
                     </Table>
                 </TableContainer>
             </CardContent>
         </Card>
-
     );
 }
