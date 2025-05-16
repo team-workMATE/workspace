@@ -5,6 +5,7 @@ import InstallPage from './InstallPage';
 import LandingPageCard from './LandingPageCard';
 
 export default function DashboardPage() {
-    const value = localStorage.getItem('order-placed');
+    const value = localStorage.getItem('order-placed') === 'true';
+    console.log(value);
     return value ? <InstallPage /> : <LandingPageCard />;
 }

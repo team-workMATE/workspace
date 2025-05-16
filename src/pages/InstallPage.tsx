@@ -4,54 +4,90 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import LinearProgressBar from '../components/progress/LinearProgressBar';
+import CenteredCardHeader from '../components/card/CenteredCardHeader';
+import { Card, CardContent, Collapse, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { Fragment, useState } from 'react';
 
-export default function DelayingAppearance() {
-  const [query, setQuery] = React.useState('idle');
-  const timerRef = React.useRef<ReturnType<typeof setTimeout>>(undefined);
+interface Props {
+    name: string;
+}
 
-  React.useEffect(
-    () => () => {
-      clearTimeout(timerRef.current);
-    },
-    [],
-  );
+function Row(props: Props) {
+    const { name } = props;
+    const [open, setOpen] = useState(false);
+    const [install, setInstall] = useState(false);
 
-  const handleClickQuery = () => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
+    return (
+        <Fragment>
+            <TableRow>
+                <TableCell>
+                    <Typography>{name}</Typography>
+                </TableCell>
+                <TableCell>
+                    <Button onClick={() => setOpen(!open)}>Start Install</Button>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={2}>
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                        <Table sx={{ margin: 1 }}>
+                            <TableBody>
+                                <LinearProgressBar start={open} onComplete={() => setInstall(false)} />
+                            </TableBody>
+                        </Table>
+                    </Collapse>
+                </TableCell>
+            </TableRow>
+        </Fragment>
+    );
+}
 
-    if (query !== 'idle') {
-      setQuery('idle');
-      return;
-    }
+export default function InstallPage() {
+    const [query, setQuery] = React.useState('idle');
+    const timerRef = React.useRef<ReturnType<typeof setTimeout>>(undefined);
 
-    setQuery('progress');
-    timerRef.current = setTimeout(() => {
-      setQuery('success');
-    }, 2000);
-  };
+    React.useEffect(
+        () => () => {
+            clearTimeout(timerRef.current);
+        },
+        [],
+    );
 
-  return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Box>
-        {query === 'success' ? (
-          <Typography>Install was Successful!</Typography>
-        ) : (
-          <Fade
-            in={query === 'progress'}
-            style={{
-              transitionDelay: query === 'progress' ? '800ms' : '0ms',
-            }}
-            unmountOnExit
-          >
-            <LinearProgressBar />
-          </Fade>
-        )}
-      </Box>
-      <Button onClick={handleClickQuery} sx={{ m: 2 }}>
-        {query !== 'idle' ? 'Cancel' : 'Install'}
-      </Button>
-    </Box>
-  );
+    const handleClickQuery = () => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+        }
+
+        if (query !== 'idle') {
+            setQuery('idle');
+            return;
+        }
+
+        setQuery('progress');
+        timerRef.current = setTimeout(() => {
+            setQuery('success');
+        }, 2000);
+    };
+
+    return (
+        <Card>
+            <CenteredCardHeader title='Installation Items' />
+            <CardContent>
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableBody>
+                            <Row name={'Intellij Community Edition'}/>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+
+                {query === 'idle' || query === 'progress' && <Button onClick={handleClickQuery} sx={{ m: 2 }}>
+                    {query === 'progress' ? 'Install' : 'Cancel'}
+                </Button>}
+                {query === 'success' && <Typography>Install was Successful!</Typography>}
+            </CardContent>
+        </Card>
+
+    );
 }

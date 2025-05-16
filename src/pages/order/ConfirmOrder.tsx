@@ -4,18 +4,19 @@ import CenteredCardHeader from "../../components/card/CenteredCardHeader";
 import GridContainer from "../../components/grid/GridContainer";
 import { Order } from "../../model/Order";
 import OrderDetails from "./OrderDetails";
-import SuccessfulSnackBar from "../../components/snackbar/SuccessfulSnackBar";
+import OrderConfirmationDialog from "../../components/dialog/OrderConfirmationDialog";
 
 type Props = {
     order: Order
 };
 
 const ConfirmOrder: React.FC<Props> = ({ order }) => {
-    const [openSnackBar, setOpenSnackBar] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
 
     const placeOrder = () => {
         localStorage.setItem('order-placed', 'true');
-    }
+        setOpenDialog(true);
+    };
 
     return (
         <Card>
@@ -25,9 +26,8 @@ const ConfirmOrder: React.FC<Props> = ({ order }) => {
             </CardContent>
             <CardActions>
                 <GridContainer centered>
-                    <Button color="primary" onClick={() => setOpenSnackBar(true)}>Confirm Order</Button>
-                    {openSnackBar && <SuccessfulSnackBar open={openSnackBar}
-                        onClose={() => setOpenSnackBar(false)} />}
+                    <Button color="primary" onClick={placeOrder}>Confirm Order</Button>
+                    {openDialog && <OrderConfirmationDialog open={openDialog} onClose={() => setOpenDialog(false)}/>}
                 </GridContainer>
             </CardActions>
         </Card>

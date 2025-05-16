@@ -3,16 +3,18 @@ import CenteredDialogTitle from "./CenteredDialogTitle";
 import LinearProgressBar from "../progress/LinearProgressBar";
 
 type Props = {
-open: boolean;
+    open: boolean;
     onClose: () => void;
 };
 
-const InstallationDialog:React.FC<Props> = ({open, onClose}) => {
+const InstallationDialog: React.FC<Props> = ({ open, onClose }) => {
     return (
         <Dialog open={open} onClose={onClose}>
-            <CenteredDialogTitle title={"Installation"}/>
+            <CenteredDialogTitle title={"Installation"} />
             <DialogContent>
-                <LinearProgressBar/>
+                <LinearProgressBar start={false} onComplete={function (): void {
+                    throw new Error("Function not implemented.");
+                } } />
             </DialogContent>
         </Dialog>
     );
